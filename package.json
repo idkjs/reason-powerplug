@@ -11,15 +11,16 @@
     "url": "https://github.com/beizhedenglong/reason-powerplug/issues"
   },
   "scripts": {
-    "format": "yarn format:most && yarn format:re",
+    "format": "yarn format:most && yarn format:re && yarn format:res",
     "format:most": "prettier --write \"**/*.{bs.js,js,json,css,md}\"",
     "format:re": "find . -name \"*.re\" | grep -v \"node_modules\" | xargs bsrefmt --in-place",
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
-    "clean": "bsb -clean-world",
+    "format:res": "rescript format -all",
+    "build": "rescript",
+    "clean": "rescript clean -with-deps",
+    "start": "rescript build -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack watch",
-    "webpack": "webpack serve"
+    "serve": "webpack serve"
   },
   "keywords": [
     "BuckleScript",
@@ -38,19 +39,19 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "bs-platform": "^9.0.2",
-    "reason-react": ">=0.9.1"
+    "rescript": "^9.1.4",
+    "@rescript/react": "^0.10.3"
   },
   "devDependencies": {
     "@glennsl/bs-jest": "^0.7.0",
-    "bs-platform": "^9.0.2",
+    "rescript": "^9.1.4",
     "bs-react-test-renderer": "^3.0.0",
     "html-webpack-plugin": "^5.3.1",
     "husky": "^6.0.0",
     "prettier": "^2.3.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "reason-react": ">=0.9.1",
+    "@rescript/react": "^0.10.3",
     "webpack": "^5.38.1",
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2"
@@ -61,14 +62,8 @@
     "proseWrap": "always"
   },
   "lint-staged": {
-    "*.re": [
-      "bsrefmt --in-place",
-      "git add"
-    ],
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "*.re": [ "bsrefmt --in-place", "git add" ],
+    "*.{js,json,css,md}": [ "prettier --write", "git add" ]
   },
   "husky": {
     "hooks": {
